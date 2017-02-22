@@ -10,6 +10,7 @@ import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
+import android.view.MotionEvent;
 
 public class MainActivity extends Activity {
     private GLSurfaceView glSurfaceView;
@@ -72,5 +73,30 @@ public class MainActivity extends Activity {
         if (rendererSet) {
             glSurfaceView.onResume();
         }
+    }
+
+    @Override // onTouchEvent
+    public boolean dispatchTouchEvent(MotionEvent e) {
+
+        final int action = e.getAction();
+        final int pointerIndex = e.getActionIndex();
+        final int pointerID = e.getPointerId(pointerIndex);
+
+        float x = e.getX(pointerIndex);
+        float y = e.getY(pointerIndex);
+
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                GameLibJNIWrapper.onTouchStart();
+            case MotionEvent.ACTION_MOVE:
+                GameLibJNIWrapper.onTouchMove();
+            case MotionEvent.ACTION_UP:
+                GameLibJNIWrapper.onTouchEnd();
+//        case MotionEvent.ACTION_POINTER_DOWN: doSmth(); // for multitouch
+//        case MotionEvent.ACTION_POINTER_UP: doSmth(); // for multitouch
+            default:
+        }
+
+        return false; // false for not propagating
     }
 }
