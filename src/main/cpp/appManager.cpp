@@ -7,6 +7,9 @@
 #include <android/asset_manager_jni.h>
 #include <math.h>
 
+#include "customDefines.h"
+#include "shaderProgram.h"
+
 static AAssetManager* assetManager;
 
 long long currentTimeInMilliseconds()
@@ -39,11 +42,10 @@ extern "C" {
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_passAssetManager(JNIEnv *env, jclass cls,
                                                                                 jobject aMng) {
-        __android_log_print(ANDROID_LOG_VERBOSE, "TestApp", "TAAAAAAAAAAAA");
+        LOGI("TAAAAAAAAAAAA");
 
         env->NewGlobalRef(aMng);
         assetManager = AAssetManager_fromJava(env, aMng);
-        // loadShaders("shaders/test.vert", "shaders/test.frag");
 
         AAsset* file = AAssetManager_open(assetManager, "shaders/test.vert", AASSET_MODE_BUFFER);
         size_t fileLength = AAsset_getLength(file);
@@ -55,13 +57,16 @@ extern "C" {
 
         // use file content
 
+        GLuint sh = compileShader(GL_VERTEX_SHADER, fileContent);
+        LOGI("aaaaaaaaaaaaaaaaa %d", sh);
+
         delete [] fileContent;
 
     }
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onTouchStart(JNIEnv *env, jclass cls, float posX) {
         col = posX / x;
-        __android_log_print(ANDROID_LOG_VERBOSE, "TestApp", "The value of 1 + 1 is %d", 1+1);
+        LOGI("The value of 1 + 1 is %d", 1+1);
     }
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onTouchMove(JNIEnv *env, jclass cls) {

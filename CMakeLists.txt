@@ -9,7 +9,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 #add_subdirectory(${ndk_helper_dir} ndk_helper)
 
 add_library(appManager SHARED
-             src/main/cpp/appManager.cpp )
+            src/main/cpp/customDefines.cpp # todo: make it header only
+             src/main/cpp/appManager.cpp
+              src/main/cpp/shaderProgram.cpp)
 
 
 #target_include_directories(appManager PRIVATE
