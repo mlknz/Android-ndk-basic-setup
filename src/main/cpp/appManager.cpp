@@ -5,6 +5,8 @@
 #include <android/log.h>
 #include <math.h>
 
+#include "NDKHelper.h"
+
 long long currentTimeInMilliseconds()
 {
     struct timeval tv;

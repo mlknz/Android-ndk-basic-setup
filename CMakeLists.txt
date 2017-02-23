@@ -1,45 +1,28 @@
-# Sets the minimum version of CMake required to build the native
-# library. You should either keep the default value or only pass a
-# value of 3.4.0 or lower.
-
 cmake_minimum_required(VERSION 3.4.1)
+
+add_library(app-glue STATIC
+            ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 
-# Creates and names a library, sets it as either STATIC
-# or SHARED, and provides the relative paths to its source code.
-# You can define multiple libraries, and CMake builds it for you.
-# Gradle automatically packages shared libraries with your APK.
+set(ndk_helper_dir src/main/libs/ndk_helper)
+add_subdirectory(${ndk_helper_dir} ndk_helper)
 
-add_library( # Sets the name of the library.
-             appManager
-
-             # Sets the library as a shared library.
-             SHARED
-
-             # Provides a relative path to your source file(s).
-             # Associated headers in the same location as their source
-             # file are automatically included.
+add_library(appManager SHARED
              src/main/cpp/appManager.cpp )
 
-# Searches for a specified prebuilt library and stores the path as a
-# variable. Because system libraries are included in the search path by
-# default, you only need to specify the name of the public NDK library
-# you want to add. CMake verifies that the library exists before
-# completing its build.
 
-# Specifies libraries CMake should link to your target library. You
-# can link multiple libraries, such as libraries you define in the
-# build script, prebuilt third-party libraries, or system libraries.
+target_include_directories(appManager PRIVATE
+                           ${ANDROID_NDK}/sources/android/cpufeatures
+                           ${ANDROID_NDK}/sources/android/native_app_glue
+                           ${ndk_helper_dir})
 
 target_link_libraries( # Specifies the target library.
                        appManager
                        android
+                       app-glue
                        log
                        EGL
                        GLESv2
-
-                       # Links the target library to the log library
-                       # included in the NDK.
-                       # ${log-lib}
+                       ndk-helper
                        )
