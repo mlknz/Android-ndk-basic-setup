@@ -7,6 +7,8 @@
 #include <android/asset_manager_jni.h>
 #include <math.h>
 
+static AAssetManager* assetManager;
+
 long long currentTimeInMilliseconds()
 {
     struct timeval tv;
@@ -36,10 +38,24 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_passAssetManager(JNIEnv *env, jclass cls,
-                                                                                jobject assetManager) {
-        env->NewGlobalRef(assetManager);
-        AAssetManager* mgr = AAssetManager_fromJava(env, assetManager);
+                                                                                jobject aMng) {
+        __android_log_print(ANDROID_LOG_VERBOSE, "TestApp", "TAAAAAAAAAAAA");
+
+        env->NewGlobalRef(aMng);
+        assetManager = AAssetManager_fromJava(env, aMng);
         // loadShaders("shaders/test.vert", "shaders/test.frag");
+
+        AAsset* file = AAssetManager_open(assetManager, "shaders/test.vert", AASSET_MODE_BUFFER);
+        size_t fileLength = AAsset_getLength(file);
+
+        char* fileContent = new char[fileLength + 1];
+
+        AAsset_read(file, fileContent, fileLength);
+        fileContent[fileLength] = '\0';
+
+        // use file content
+
+        delete [] fileContent;
 
     }
 

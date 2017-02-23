@@ -18,7 +18,7 @@ import android.content.res.AssetManager;
 public class MainActivity extends Activity {
     private GLSurfaceView glSurfaceView;
     private boolean rendererSet;
-    private AssetManager assetManager;
+    // private AssetManager assetManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,9 @@ public class MainActivity extends Activity {
                 configurationInfo.reqGlEsVersion >= 0x20000 || isProbablyEmulator();
 
         if (supportsEs2) {
+            // assetManager = getResources().getAssets();
+            // GameLibJNIWrapper.passAssetManager(assetManager);
+
             glSurfaceView = new GLSurfaceView(this);
 
             if (isProbablyEmulator()) {
@@ -40,12 +43,10 @@ public class MainActivity extends Activity {
             }
 
             glSurfaceView.setEGLContextClientVersion(2);
-            glSurfaceView.setRenderer(new RendererWrapper());
+            glSurfaceView.setRenderer(new RendererWrapper(this));
             rendererSet = true;
             setContentView(glSurfaceView);
 
-            assetManager = getResources().getAssets();
-            GameLibJNIWrapper.passAssetManager(assetManager);
         } else {
             // Should never be seen in production, since the manifest filters unsupported devices.
             Toast.makeText(this, "This device does not support OpenGL ES 2.0.",

@@ -8,9 +8,7 @@ public class GameLibJNIWrapper {
     }
 
     public static native void onSurfaceCreated();
-    // activity.getResources().getAssets()
     public static native void onSurfaceChanged(int width, int height);
-
     public static native void onDrawFrame();
 
     public static native void passAssetManager(AssetManager mgr);
