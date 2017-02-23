@@ -3,9 +3,9 @@
 #include <GLES2/gl2.h>
 #include <sys/time.h>
 #include <android/log.h>
+#include <android/asset_manager.h>
+#include <android/asset_manager_jni.h>
 #include <math.h>
-
-#include "NDKHelper.h"
 
 long long currentTimeInMilliseconds()
 {
@@ -15,10 +15,12 @@ long long currentTimeInMilliseconds()
 }
 double col = 0.0;
 double x = 1;
+
+
 extern "C" {
-    JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onSurfaceCreated(JNIEnv *env,
-                                                                                jclass cls) {
+    JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onSurfaceCreated(JNIEnv *env, jclass cls) {
         glClearColor(0.8, 0.5f, 0.9f, 0.0f);
+
     }
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onSurfaceChanged(JNIEnv *env, jclass cls,
@@ -31,6 +33,14 @@ extern "C" {
 
         glClearColor(col, col, col, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+    }
+
+    JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_passAssetManager(JNIEnv *env, jclass cls,
+                                                                                jobject assetManager) {
+        env->NewGlobalRef(assetManager);
+        AAssetManager* mgr = AAssetManager_fromJava(env, assetManager);
+        // loadShaders("shaders/test.vert", "shaders/test.frag");
+
     }
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onTouchStart(JNIEnv *env, jclass cls, float posX) {

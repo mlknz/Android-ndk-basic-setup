@@ -8,6 +8,7 @@ import javax.microedition.khronos.opengles.GL10;
 import android.opengl.GLSurfaceView.Renderer;
 
 public class RendererWrapper implements Renderer {
+
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         GameLibJNIWrapper.onSurfaceCreated();

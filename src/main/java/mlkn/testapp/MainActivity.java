@@ -3,6 +3,7 @@ package mlkn.testapp;
 // following tutorial: http://www.learnopengles.com/calling-opengl-from-android-using-the-ndk/
 
 import android.app.Activity;
+// import android.app.NativeActivity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
@@ -12,9 +13,12 @@ import android.os.Bundle;
 import android.widget.Toast;
 import android.view.MotionEvent;
 
+import android.content.res.AssetManager;
+
 public class MainActivity extends Activity {
     private GLSurfaceView glSurfaceView;
     private boolean rendererSet;
+    private AssetManager assetManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +43,13 @@ public class MainActivity extends Activity {
             glSurfaceView.setRenderer(new RendererWrapper());
             rendererSet = true;
             setContentView(glSurfaceView);
+
+            assetManager = getResources().getAssets();
+            GameLibJNIWrapper.passAssetManager(assetManager);
         } else {
-            // Should never be seen in production, since the manifest filters
-            // unsupported devices.
+            // Should never be seen in production, since the manifest filters unsupported devices.
             Toast.makeText(this, "This device does not support OpenGL ES 2.0.",
                     Toast.LENGTH_LONG).show();
-            return;
         }
     }
 

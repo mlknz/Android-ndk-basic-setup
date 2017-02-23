@@ -1,28 +1,28 @@
 cmake_minimum_required(VERSION 3.4.1)
 
-add_library(app-glue STATIC
-            ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
+#add_library(app-glue STATIC
+#            ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 
-set(ndk_helper_dir src/main/libs/ndk_helper)
-add_subdirectory(${ndk_helper_dir} ndk_helper)
+#set(ndk_helper_dir src/main/libs/ndk_helper)
+#add_subdirectory(${ndk_helper_dir} ndk_helper)
 
 add_library(appManager SHARED
              src/main/cpp/appManager.cpp )
 
 
-target_include_directories(appManager PRIVATE
-                           ${ANDROID_NDK}/sources/android/cpufeatures
-                           ${ANDROID_NDK}/sources/android/native_app_glue
-                           ${ndk_helper_dir})
+#target_include_directories(appManager PRIVATE
+#                           ${ANDROID_NDK}/sources/android/cpufeatures
+#                           ${ANDROID_NDK}/sources/android/native_app_glue
+#                           ${ndk_helper_dir})
 
 target_link_libraries( # Specifies the target library.
                        appManager
                        android
-                       app-glue
+                       #app-glue
                        log
                        EGL
                        GLESv2
-                       ndk-helper
+                       #ndk-helper
                        )
