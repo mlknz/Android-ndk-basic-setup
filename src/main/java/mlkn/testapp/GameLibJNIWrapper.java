@@ -13,7 +13,7 @@ public class GameLibJNIWrapper {
 
     public static native void onDrawFrame();
 
-    public static native void onTouchStart();
+    public static native void onTouchStart(float posX);
     public static native void onTouchMove();
     public static native void onTouchEnd();
 }

@@ -82,15 +82,18 @@ public class MainActivity extends Activity {
         final int pointerIndex = e.getActionIndex();
         final int pointerID = e.getPointerId(pointerIndex);
 
+        // final int touchesAmount = e.getPointerCount();
+
         float x = e.getX(pointerIndex);
         float y = e.getY(pointerIndex);
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                GameLibJNIWrapper.onTouchStart();
+                GameLibJNIWrapper.onTouchStart(x);
             case MotionEvent.ACTION_MOVE:
                 GameLibJNIWrapper.onTouchMove();
             case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
                 GameLibJNIWrapper.onTouchEnd();
 //        case MotionEvent.ACTION_POINTER_DOWN: doSmth(); // for multitouch
 //        case MotionEvent.ACTION_POINTER_UP: doSmth(); // for multitouch
