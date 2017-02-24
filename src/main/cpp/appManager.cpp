@@ -48,8 +48,10 @@ extern "C" {
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_passAssetManager(JNIEnv *env, jclass cls,
                                                                                 jobject aMng) {
         glm::vec2* a = new glm::vec2(0.55, 1);
-        LOGI("TAAAAAAAAAAAA, %f, %s", a->x, PNG_HEADER_VERSION_STRING);
-        // png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+        LOGI("TAAAAAAAAAAAAa, %f, %s", a->x, PNG_HEADER_VERSION_STRING);
+        png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+        png_infop info_ptr = png_create_info_struct(png_ptr);
+        LOGI("TAAAAAAAAAAAAd, %s", PNG_LIBPNG_VER_STRING);
 
         env->NewGlobalRef(aMng);
         assetManager = AAssetManager_fromJava(env, aMng);
