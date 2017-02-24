@@ -6,7 +6,7 @@
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include <math.h>
-// #include <png.h>
+#include <png.h>
 
 #include "glm/glm.hpp"
 #include "glm/gtc/type_ptr.hpp"
@@ -47,9 +47,9 @@ extern "C" {
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_passAssetManager(JNIEnv *env, jclass cls,
                                                                                 jobject aMng) {
-
         glm::vec2* a = new glm::vec2(0.55, 1);
-        LOGI("TAAAAAAAAAAAA, %f", a->x);
+        LOGI("TAAAAAAAAAAAA, %f, %s", a->x, PNG_HEADER_VERSION_STRING);
+        // png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 
         env->NewGlobalRef(aMng);
         assetManager = AAssetManager_fromJava(env, aMng);
