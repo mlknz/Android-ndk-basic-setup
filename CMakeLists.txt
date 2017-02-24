@@ -5,11 +5,12 @@ cmake_minimum_required(VERSION 3.4.1)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 
-#set(ndk_helper_dir src/main/libs/ndk_helper)
-#add_subdirectory(${ndk_helper_dir} ndk_helper)
 
+# Import the CMakeLists.txt for the glm library
+add_subdirectory(src/main/cpp/glm)
+
+include_directories(src/main/cpp/customDefines.h)
 add_library(appManager SHARED
-            src/main/cpp/customDefines.cpp # todo: make it header only
              src/main/cpp/appManager.cpp
               src/main/cpp/shaderProgram.cpp)
 
@@ -22,9 +23,9 @@ add_library(appManager SHARED
 target_link_libraries( # Specifies the target library.
                        appManager
                        android
-                       #app-glue
                        log
                        EGL
                        GLESv2
-                       #ndk-helper
+                       glm
+                       #z # for libpng
                        )
