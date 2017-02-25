@@ -12,6 +12,8 @@
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
+#include "pngImageLoader.h"
+
 #include "customDefines.h"
 #include "shaderProgram.h"
 
@@ -48,13 +50,18 @@ extern "C" {
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_passAssetManager(JNIEnv *env, jclass cls,
                                                                                 jobject aMng) {
         glm::vec2* a = new glm::vec2(0.55, 1);
-        LOGI("TAAAAAAAAAAAAa, %f, %s", a->x, PNG_HEADER_VERSION_STRING);
+
+        LOGI("TAAAAAAAAAAAAa a, %f, %s", a->x, PNG_HEADER_VERSION_STRING);
         png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
         png_infop info_ptr = png_create_info_struct(png_ptr);
-        LOGI("TAAAAAAAAAAAAd, %s", PNG_LIBPNG_VER_STRING);
+
 
         env->NewGlobalRef(aMng);
         assetManager = AAssetManager_fromJava(env, aMng);
+
+        ImageData* testImage;
+        testImage = FromAssetPNGFile(assetManager, "textures/testImage2.png");
+        LOGI("image width / height: %d / %d", testImage->img_width, testImage->img_height);
 
         AAsset* file = AAssetManager_open(assetManager, "shaders/test.vert", AASSET_MODE_BUFFER);
         size_t fileLength = AAsset_getLength(file);

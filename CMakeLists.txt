@@ -12,7 +12,11 @@ set_target_properties(libpng PROPERTIES IMPORTED_LOCATION
 include_directories(src/main/cpp/customDefines.h)
 add_library(appManager SHARED
              src/main/cpp/appManager.cpp
-              src/main/cpp/shaderProgram.cpp)
+              src/main/cpp/shaderProgram.cpp
+              src/main/cpp/assetLoader.cpp
+              src/main/cpp/texture.cpp
+    src/main/cpp/pngImageLoader.cpp
+              )
 
 target_include_directories(appManager PRIVATE ${ANDROID_NDK}/sources/android/libpng-android/jni/)
 
@@ -20,10 +24,10 @@ target_link_libraries( # Specifies the target library.
                        appManager
 
                        android
-                       libpng
-                       z
                        log
                        EGL
                        GLESv2
                        glm
+                       libpng
+                       z
                        )
