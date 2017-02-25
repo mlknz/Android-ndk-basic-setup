@@ -1,9 +1,9 @@
+// pngImageLoader code from https://github.com/julienr/libpng-android
+
 #include "pngImageLoader.h"
-#include <jni.h>
 #include <android/asset_manager.h>
 #include <png.h>
-#include <android/log.h>
-#include "customDefines.h"
+#include "../common.h"
 
 struct PNGImageData : public ImageData {
   PNGImageData(png_byte* pixels, int width, int height) {

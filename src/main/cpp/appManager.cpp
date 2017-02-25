@@ -2,7 +2,6 @@
 
 #include <GLES2/gl2.h>
 #include <sys/time.h>
-#include <android/log.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include <math.h>
@@ -12,10 +11,11 @@
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-#include "pngImageLoader.h"
+#include "assetManager/assetManager.h"
+#include "assetManager/pngImageLoader.h"
 
-#include "customDefines.h"
-#include "shaderProgram.h"
+#include "common.h"
+#include "renderer/shaderProgram.h"
 
 static AAssetManager* assetManager;
 
@@ -27,7 +27,6 @@ long long currentTimeInMilliseconds()
 }
 double col = 0.0;
 double x = 1;
-
 
 extern "C" {
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onSurfaceCreated(JNIEnv *env, jclass cls) {
@@ -49,12 +48,6 @@ extern "C" {
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_passAssetManager(JNIEnv *env, jclass cls,
                                                                                 jobject aMng) {
-        glm::vec2* a = new glm::vec2(0.55, 1);
-
-        LOGI("TAAAAAAAAAAAAa a, %f, %s", a->x, PNG_HEADER_VERSION_STRING);
-        png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-        png_infop info_ptr = png_create_info_struct(png_ptr);
-
 
         env->NewGlobalRef(aMng);
         assetManager = AAssetManager_fromJava(env, aMng);
@@ -72,9 +65,7 @@ extern "C" {
         fileContent[fileLength] = '\0';
 
         // use file content
-
         GLuint sh = compileShader(GL_VERTEX_SHADER, fileContent);
-        LOGI("aaaaaaaaaaaaaaaaa %d", sh);
 
         delete [] fileContent;
 
@@ -82,7 +73,6 @@ extern "C" {
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onTouchStart(JNIEnv *env, jclass cls, float posX) {
         col = posX / x;
-        LOGI("The value of 1 + 1 is %d", 1+1);
     }
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onTouchMove(JNIEnv *env, jclass cls) {

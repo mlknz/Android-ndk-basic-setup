@@ -3,8 +3,7 @@
 #include <GLES2/gl2.h>
 
 #include "shaderProgram.h"
-#include <android/log.h>
-#include "customDefines.h"
+#include "../common.h"
 
 GLuint compileShader(GLenum eShaderType, const char* shaderCodeChar)
 {

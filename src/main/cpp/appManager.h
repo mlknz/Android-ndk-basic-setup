@@ -1,6 +1,5 @@
-
-#ifndef TESTAPP_APPMANAGER_H
-#define TESTAPP_APPMANAGER_H
+#ifndef __AppManager__
+#define __AppManager__
 
 #include <jni.h>
 
@@ -13,4 +12,4 @@ JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onTouchStart(JNIEnv* 
 JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onTouchMove(JNIEnv* env, jclass cls);
 JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onTouchEnd(JNIEnv* env, jclass cls);
 };
-#endif //TESTAPP_APPMANAGER_H
+#endif
