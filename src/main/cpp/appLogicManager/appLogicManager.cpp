@@ -3,8 +3,9 @@
 
 float dx, dy = 0.f;
 
-AppLogicManager::AppLogicManager(GameState* g) {
+AppLogicManager::AppLogicManager(GameState* g, AssetManager* a) {
     this->gameState = g;
+    this->assetManager = a;
 }
 
 AppLogicManager::~AppLogicManager() {
@@ -36,6 +37,19 @@ void AppLogicManager::onTouchEnd(float posX, float posY) {
     this->touchActive = false;
 }
 
+void AppLogicManager::switchToMenuScene() {
+    this->menuSceneActive = true;
+    this->gameSceneActive = false;
+}
+
+void AppLogicManager::switchToGameScene() {
+    this->menuSceneActive = false;
+    this->gameSceneActive = true;
+}
+
 void AppLogicManager::update() {
     this->gameState->time = currentTimeInMilliseconds();
+
+
 }
+

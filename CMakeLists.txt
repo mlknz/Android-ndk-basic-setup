@@ -22,6 +22,11 @@ add_library(appManager SHARED
               src/main/cpp/renderer/renderer.cpp
               src/main/cpp/renderer/shaderProgram.cpp
               src/main/cpp/renderer/texture.cpp
+
+              src/main/cpp/gameObject/gameObject.cpp
+              src/main/cpp/gameObject/button.cpp
+              src/main/cpp/gameObject/bird.cpp
+              src/main/cpp/gameObject/columns.cpp
               )
 
 target_include_directories(appManager PRIVATE ${ANDROID_NDK}/sources/android/libpng-android/jni/)

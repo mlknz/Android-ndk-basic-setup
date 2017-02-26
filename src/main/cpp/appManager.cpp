@@ -17,8 +17,10 @@ extern "C" {
     Java_mlkn_testapp_GameLibJNIWrapper_onSurfaceCreated(JNIEnv *env, jclass cls) {
         gameState = new GameState();
 
-        appLogicManager = new AppLogicManager(gameState);
+        appLogicManager = new AppLogicManager(gameState, assetManager);
         renderer = new Renderer(gameState);
+
+        appLogicManager->switchToMenuScene();
     }
 
     JNIEXPORT void JNICALL

@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-#include "../glm/glm.hpp"
+#include "../glm/glm.hpp" // todo: clean up libs linking mess
 #include "../glm/gtc/type_ptr.hpp"
 #include "../glm/gtc/matrix_transform.hpp"
 
