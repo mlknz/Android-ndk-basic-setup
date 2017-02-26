@@ -1,11 +1,10 @@
 #include "renderer.h"
 
-#include <GLES2/gl2.h>
-
+#include "shaderProgram.h"
 #include "../config.h"
 
 Renderer::Renderer() {
-    this->setClearColor(0.8f, 0.5f, 0.9f, 0.0f);
+    this->setClearColor(config::clearColor[0], config::clearColor[1], config::clearColor[2], config::clearColor[3]);
 }
 
 Renderer::~Renderer() { }
@@ -17,6 +16,15 @@ void Renderer::setClearColor(float r, float g, float b, float a) {
 void Renderer::resize(int w, int h) {
     this->width = w;
     this->height = h;
+}
+
+GLuint Renderer::createShaderProgram(char* vertCode, char* fragCode) {
+    GLuint vert = compileShader(GL_VERTEX_SHADER, vertCode);
+    GLuint frag = compileShader(GL_FRAGMENT_SHADER, vertCode);
+
+    GLuint program = linkShaderProgram(vert, frag);
+
+    return program;
 }
 
 void Renderer::render() {

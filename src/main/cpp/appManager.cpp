@@ -1,7 +1,7 @@
 #include <jni.h>
 
 #include <GLES2/gl2.h>
-#include <sys/time.h>
+
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include <math.h>
@@ -11,27 +11,24 @@
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
+#include "common.h"
+
 #include "assetManager/assetManager.h"
+#include "gamestate.h"
 #include "assetManager/pngImageLoader.h"
 #include "renderer/renderer.h"
+#include "appLogicManager/appLogicManager.h"
 
-#include "common.h"
-#include "renderer/shaderProgram.h"
-
+static GameState* gameState;
+static AppLogicManager* appLogic;
 static Renderer* renderer;
 static AAssetManager* assetManager;
 
-long long currentTimeInMilliseconds()
-{
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
-double col = 0.0;
-double x = 1;
-
 extern "C" {
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onSurfaceCreated(JNIEnv *env, jclass cls) {
+        gameState = new GameState();
+
+        appLogic = new AppLogicManager(gameState);
         renderer = new Renderer();
     }
 
@@ -41,7 +38,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onDrawFrame(JNIEnv *env, jclass cls) {
-        double t = currentTimeInMilliseconds();
+        appLogic->update();
         renderer->render();
     }
 
@@ -64,7 +61,6 @@ extern "C" {
         fileContent[fileLength] = '\0';
 
         // use file content
-        GLuint sh = compileShader(GL_VERTEX_SHADER, fileContent);
 
         delete [] fileContent;
 
