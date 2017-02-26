@@ -9,6 +9,8 @@ public:
     double time = -1;
     double dt;
 
+    int canvasWidth = -1;
+    int canvasHeight = -1;
 };
 
 #endif

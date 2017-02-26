@@ -13,7 +13,7 @@ public class GameLibJNIWrapper {
 
     public static native void passAssetManager(AssetManager mgr);
 
-    public static native void onTouchStart(float posX);
-    public static native void onTouchMove();
-    public static native void onTouchEnd();
+    public static native void onTouchStart(float posX, float posY);
+    public static native void onTouchMove(float posX, float posY);
+    public static native void onTouchEnd(float posX, float posY);
 }

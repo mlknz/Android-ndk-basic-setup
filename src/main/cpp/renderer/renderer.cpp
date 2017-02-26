@@ -7,19 +7,22 @@
 #include "shaderProgram.h"
 #include "../config.h"
 
-Renderer::Renderer() {
+Renderer::Renderer(GameState* g) {
+    this->gameState = g;
     this->setClearColor(config::clearColor[0], config::clearColor[1], config::clearColor[2], config::clearColor[3]);
 }
 
-Renderer::~Renderer() { }
+Renderer::~Renderer() {
+    this->gameState = nullptr;
+}
 
 void Renderer::setClearColor(float r, float g, float b, float a) {
     glClearColor(r, g, b, a);
 }
 
 void Renderer::resize(int w, int h) {
-    this->width = w;
-    this->height = h;
+    this->gameState->canvasWidth = w;
+    this->gameState->canvasHeight = h;
 }
 
 GLuint Renderer::createShaderProgram(char* vertCode, char* fragCode) {

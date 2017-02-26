@@ -95,12 +95,12 @@ public class MainActivity extends Activity {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                GameLibJNIWrapper.onTouchStart(x);
+                GameLibJNIWrapper.onTouchStart(x, y);
             case MotionEvent.ACTION_MOVE:
-                GameLibJNIWrapper.onTouchMove();
+                GameLibJNIWrapper.onTouchMove(x, y);
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                GameLibJNIWrapper.onTouchEnd();
+                GameLibJNIWrapper.onTouchEnd(x, y);
 //        case MotionEvent.ACTION_POINTER_DOWN: doSmth(); // for multitouch
 //        case MotionEvent.ACTION_POINTER_UP: doSmth(); // for multitouch
             default:

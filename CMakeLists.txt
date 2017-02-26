@@ -14,15 +14,14 @@ add_library(appManager SHARED
               src/main/cpp/appManager.cpp
               src/main/cpp/gamestate.cpp
 
-              src/main/cpp/renderer/renderer.cpp
-              src/main/cpp/renderer/shaderProgram.cpp
-              src/main/cpp/renderer/texture.cpp
-
               src/main/cpp/appLogicManager/appLogicManager.cpp
-              src/main/cpp/appLogicManager/controls.cpp
 
               src/main/cpp/assetManager/assetManager.cpp
               src/main/cpp/assetManager/pngImageLoader.cpp
+
+              src/main/cpp/renderer/renderer.cpp
+              src/main/cpp/renderer/shaderProgram.cpp
+              src/main/cpp/renderer/texture.cpp
               )
 
 target_include_directories(appManager PRIVATE ${ANDROID_NDK}/sources/android/libpng-android/jni/)

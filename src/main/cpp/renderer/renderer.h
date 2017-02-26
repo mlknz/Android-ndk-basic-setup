@@ -3,9 +3,11 @@
 
 #include <GLES2/gl2.h>
 
+#include "../gamestate.h"
+
 class Renderer {
 public:
-    Renderer();
+    Renderer(GameState* g);
     ~Renderer();
 
     GLuint createShaderProgram(char* vertCode, char* fragCode);
@@ -14,8 +16,7 @@ public:
     void resize(int w, int h);
     void render();
 private:
-    int width;
-    int height;
+    GameState* gameState;
 };
 
 #endif
