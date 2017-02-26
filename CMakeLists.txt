@@ -9,7 +9,7 @@ add_library(libpng STATIC IMPORTED)
 set_target_properties(libpng PROPERTIES IMPORTED_LOCATION
     ${ANDROID_NDK}/sources/android/libpng-android/obj/local/${ANDROID_ABI}/libpng.a)
 
-include_directories(src/main/cpp/common.h)
+include_directories(src/main/cpp/common.h src/main/cpp/config.h)
 add_library(appManager SHARED
               src/main/cpp/appManager.cpp
               src/main/cpp/gamestate.cpp

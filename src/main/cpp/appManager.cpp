@@ -13,10 +13,12 @@
 
 #include "assetManager/assetManager.h"
 #include "assetManager/pngImageLoader.h"
+#include "renderer/renderer.h"
 
 #include "common.h"
 #include "renderer/shaderProgram.h"
 
+static Renderer* renderer;
 static AAssetManager* assetManager;
 
 long long currentTimeInMilliseconds()
@@ -30,20 +32,17 @@ double x = 1;
 
 extern "C" {
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onSurfaceCreated(JNIEnv *env, jclass cls) {
-        glClearColor(0.8, 0.5f, 0.9f, 0.0f);
-
+        renderer = new Renderer();
     }
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onSurfaceChanged(JNIEnv *env, jclass cls,
                                                                                 jint w, jint h) {
-        x = w;
+        renderer->resize(w, h);
     }
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onDrawFrame(JNIEnv *env, jclass cls) {
         double t = currentTimeInMilliseconds();
-
-        glClearColor(col, col, col, 0.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        renderer->render();
     }
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_passAssetManager(JNIEnv *env, jclass cls,
@@ -72,7 +71,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onTouchStart(JNIEnv *env, jclass cls, float posX) {
-        col = posX / x;
+
     }
 
     JNIEXPORT void JNICALL Java_mlkn_testapp_GameLibJNIWrapper_onTouchMove(JNIEnv *env, jclass cls) {
