@@ -14,7 +14,7 @@ public:
     GameObject(GameState* g, AssetManager* a);
     ~GameObject();
 
-    // void render() {};
+    virtual void render() {};
 
     std::string type = "GameObject";
     GLuint shaderProgram;
@@ -24,11 +24,11 @@ protected:
     void setShaderProgram(std::string type);
     GLuint createShaderProgram(std::string type);
 
-private:
-    virtual void dispose() = 0;
-
     GameState* gameState;
     AssetManager* assetManager;
+
+private:
+    virtual void dispose() = 0;
 
 };
 

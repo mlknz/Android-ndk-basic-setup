@@ -2,6 +2,8 @@
 
 Playing with gl context and C++ with android.
 
+// pngImageLoader code from https://github.com/julienr/libpng-android
+
 ${ANDROID_NDK} is NDK root directory (Android/sdk/ndk-bundle for me). 
 
 Mess with libpng installation:

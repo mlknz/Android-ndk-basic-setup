@@ -10,7 +10,7 @@ AppLogicManager::AppLogicManager(GameState* g, AssetManager* a, SceneManager* s)
     this->assetManager = a;
     this->sceneManager = s;
 
-    Button* startGameButton = new Button(this->gameState, this->assetManager);
+    Button* startGameButton = new Button(this->gameState, this->assetManager, 0.0f, 0.0f, 0.7f, 0.25f, "textures/testImage.png");
     this->sceneManager->testButton = startGameButton;
 }
 

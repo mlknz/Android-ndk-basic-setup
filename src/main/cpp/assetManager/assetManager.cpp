@@ -1,7 +1,7 @@
 #include "assetManager.h"
 
 #include "../common.h"
-#include "pngImageLoader.h"
+
 
 AssetManager::AssetManager(JNIEnv* env, jobject aMng) {
     this->env = env;
@@ -9,10 +9,6 @@ AssetManager::AssetManager(JNIEnv* env, jobject aMng) {
 
     env->NewGlobalRef(aMng);
     this->refreshFromJava();
-
-    // ImageData* testImage;
-    // testImage = FromAssetPNGFile(assetManager, "textures/testImage2.png");
-
 }
 
 AssetManager::~AssetManager() {
@@ -22,6 +18,11 @@ AssetManager::~AssetManager() {
 
 void AssetManager::refreshFromJava() {
     this->assetManager = AAssetManager_fromJava(this->env, this->aMng);
+}
+
+// todo: refactor
+ImageData* AssetManager::loadPNGImage(std::string path) {
+    return FromAssetPNGFile(this->assetManager, path.c_str());
 }
 
 char* AssetManager::loadFile(std::string path) {

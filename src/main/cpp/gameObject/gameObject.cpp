@@ -1,6 +1,5 @@
 #include "gameObject.h"
 
-#include "../common.h"
 #include "../renderer/shaderProgram.h"
 
 GameObject::GameObject(GameState* g, AssetManager* a) {

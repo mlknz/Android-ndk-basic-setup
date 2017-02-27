@@ -28,7 +28,5 @@ void Renderer::resize(int w, int h) {
 
 void Renderer::render() {
     glClear(GL_COLOR_BUFFER_BIT);
-    glDisable(GL_DEPTH_TEST);
-    glFrontFace(GL_CCW);
     this->sceneManager->testButton->render();
 }

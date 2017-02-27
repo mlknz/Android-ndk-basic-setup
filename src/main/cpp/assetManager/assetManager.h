@@ -8,12 +8,15 @@
 
 #include <string>
 
+#include "pngImageLoader.h"
+
 class AssetManager {
 public:
     AssetManager(JNIEnv* env, jobject aMng);
     ~AssetManager();
     void refreshFromJava();
     char* loadFile(std::string path);
+    ImageData* loadPNGImage(std::string path);
 
 private:
     JNIEnv* env;
