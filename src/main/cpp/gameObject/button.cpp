@@ -1,5 +1,5 @@
 #include "button.h"
-
+#include "../common.h"
 Button::Button(GameState* g, AssetManager* a,
                float centerX, float centerY, float width, float aspectRatio,
                std::string imagePath) : GameObject(g, a) {
@@ -8,15 +8,11 @@ Button::Button(GameState* g, AssetManager* a,
     this->width = width;
     this->aspectRatio = aspectRatio;
 
-    // todo: use screen width / height and handle resize
-    this->left = this->centerX - this->width / 2.f;
-    this->right = this->centerX + this->width / 2.f;
-    this->down = this->centerY - this->width * this->aspectRatio / 2.f;
-    this->up = this->centerY + this->width * this->aspectRatio / 2.f;
-
     this->setShaderProgram(this->type);
 
-    this->prepareGLBuffers();
+    this->createGLBuffers();
+
+    this->resize();
 
     this->useTexture = imagePath.size() > 0;
     if (this->useTexture) {
@@ -25,8 +21,21 @@ Button::Button(GameState* g, AssetManager* a,
     }
 }
 
-void Button::prepareGLBuffers() {
-    glGenBuffers(1, &this->vertexBuffer); // glDeleteBuffers(1, &VertexVBO);
+void Button::resize() {
+    this->left = this->centerX - this->width / 2.f;
+    this->right = this->centerX + this->width / 2.f;
+    this->down = this->centerY - this->width * this->aspectRatio * this->gameState->aspectRatio / 2.f;
+    this->up = this->centerY + this->width * this->aspectRatio * this->gameState->aspectRatio / 2.f;
+
+    this->updateGLBuffers();
+}
+
+void Button::createGLBuffers() {
+    glGenBuffers(1, &this->vertexBuffer);
+}
+
+void Button::updateGLBuffers() {
+    // glDeleteBuffers(1, &VertexVBO);
     glBindBuffer(GL_ARRAY_BUFFER, this->vertexBuffer);
 
     float data[24] = {

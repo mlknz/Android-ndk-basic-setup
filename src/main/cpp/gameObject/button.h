@@ -13,6 +13,7 @@ public:
     std::string type = "button";
 
     void render();
+    void resize();
 
     float left;
     float right;
@@ -21,7 +22,8 @@ public:
 
 private:
 
-    void prepareGLBuffers();
+    void createGLBuffers();
+    void updateGLBuffers();
     GLuint prepareGLTexture(int w, int h, uint8_t* data);
     void dispose() {};
 

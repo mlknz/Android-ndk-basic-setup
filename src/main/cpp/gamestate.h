@@ -14,8 +14,9 @@ public:
     double time = -1;
     double dt;
 
-    int canvasWidth = -1;
-    int canvasHeight = -1;
+    int canvasWidth = 1;
+    int canvasHeight = 1;
+    float aspectRatio = 1.f;
 
     std::map<std::string, GLuint> shaderPrograms;
 };

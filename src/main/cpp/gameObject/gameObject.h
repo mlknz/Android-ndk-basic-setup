@@ -15,6 +15,7 @@ public:
     ~GameObject();
 
     virtual void render() {};
+    virtual void resize() {};
 
     std::string type = "GameObject";
     GLuint shaderProgram;

@@ -4,6 +4,7 @@
 #include "../glm/gtc/type_ptr.hpp"
 #include "../glm/gtc/matrix_transform.hpp"
 
+#include "../common.h"
 #include "../config.h"
 
 Renderer::Renderer(GameState* g, SceneManager* s) {
@@ -22,8 +23,12 @@ void Renderer::setClearColor(float r, float g, float b, float a) {
 }
 
 void Renderer::resize(int w, int h) {
+    LOGI("zzzzzzzzzzz %d, %d", w, h);
     this->gameState->canvasWidth = w;
     this->gameState->canvasHeight = h;
+
+    this->gameState->aspectRatio = (float)w / (float)h;
+    this->sceneManager->testButton->resize();
 }
 
 void Renderer::render() {
