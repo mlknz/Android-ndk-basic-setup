@@ -3,6 +3,8 @@
 
 #include "../common.h"
 #include "../gameObject/button.h"
+#include "../gameObject/bird.h"
+#include "../gameObject/columns.h"
 
 float dx, dy = 0.f;
 
@@ -11,8 +13,9 @@ AppLogicManager::AppLogicManager(GameState* g, AssetManager* a, SceneManager* s)
     this->assetManager = a;
     this->sceneManager = s;
 
-    Button* startGameButton = new Button(this->gameState, this->assetManager, 0.0f, 0.0f, 0.7f, 0.5f, "textures/testImage.png");
-    this->sceneManager->startGameButton = startGameButton;
+    this->sceneManager->startGameButton = new Button(this->gameState, this->assetManager, 0.0f, 0.0f, 0.7f, 0.5f, "textures/testImage.png");
+    this->sceneManager->bird = new Bird(this->gameState, this->assetManager);
+    this->sceneManager->columns = new Columns(this->gameState, this->assetManager);
 }
 
 AppLogicManager::~AppLogicManager() {
@@ -39,7 +42,6 @@ void AppLogicManager::onTouchStart(float posX, float posY) {
         float ndcY = this->touchPosY / this->gameState->canvasHeight;
 
         if (this->sceneManager->startGameButton->containsTouch(ndcX, ndcY)) {
-            LOGI("change scene");
             this->switchToGameScene();
         }
     }
@@ -62,6 +64,9 @@ void AppLogicManager::switchToMenuScene() {
 }
 
 void AppLogicManager::switchToGameScene() {
+    this->gameState->wPosX = 0.f;
+
+    this->sceneManager->bird->setPosition(-0.5f, 0.0f);
     this->gameState->menuSceneActive = false;
     this->gameState->gameSceneActive = true;
 }

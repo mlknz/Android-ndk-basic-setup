@@ -1,8 +1,8 @@
 #include "renderer.h"
 
-#include "../glm/glm.hpp" // todo: clean up libs linking mess
-#include "../glm/gtc/type_ptr.hpp"
-#include "../glm/gtc/matrix_transform.hpp"
+// #include "../glm/glm.hpp" // todo: clean up libs linking mess
+// #include "../glm/gtc/type_ptr.hpp"
+// #include "../glm/gtc/matrix_transform.hpp"
 
 #include "../common.h"
 #include "../config.h"
@@ -27,7 +27,9 @@ void Renderer::resize(int w, int h) {
     this->gameState->canvasHeight = h;
 
     this->gameState->aspectRatio = (float)w / (float)h;
+
     this->sceneManager->startGameButton->resize();
+    this->sceneManager->bird->resize();
 }
 
 void Renderer::render() {
@@ -36,7 +38,8 @@ void Renderer::render() {
     if (this->gameState->menuSceneActive) {
         this->sceneManager->startGameButton->render();
     } else if (this->gameState->gameSceneActive) {
-        glClearColor(0.9f, 0.0f, 0.0f, 1.0f);
+        // glClearColor(0.6f, 0.0f, 0.0f, 1.0f);
+        this->sceneManager->bird->render();
     }
 
 }

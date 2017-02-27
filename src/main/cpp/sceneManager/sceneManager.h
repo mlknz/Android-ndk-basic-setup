@@ -9,5 +9,8 @@ public:
     ~SceneManager() {};
 
     GameObject* startGameButton;
+
+    GameObject* bird;
+    GameObject* columns;
 };
 #endif

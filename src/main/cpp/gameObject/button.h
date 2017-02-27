@@ -15,6 +15,7 @@ public:
     void render();
     void resize();
     bool containsTouch(float touchX, float touchY);
+    void setPosition(float x, float y) {};
 
     float left;
     float right;
