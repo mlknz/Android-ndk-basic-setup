@@ -8,7 +8,7 @@ uniform float aspectRatio;
 varying vec2 vUv;
 
 void main() {
-    vec2 scrPos = (position - 0.5) * vec2(radius, radius * aspectRatio) + pos;
+    vec2 scrPos = (position - 0.5) * vec2(radius, radius * aspectRatio) * 2. + pos;
     gl_Position = vec4(scrPos, 0., 1.);
     vUv = uv;
 }

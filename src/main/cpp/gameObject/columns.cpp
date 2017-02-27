@@ -1,6 +1,7 @@
 #include "columns.h"
 
 #include <stdlib.h>
+#include <cmath>
 #include <time.h>
 #include "../common.h"
 
@@ -78,7 +79,37 @@ void Columns::updateGLBuffers() {
     glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_STATIC_DRAW);
 }
 
+bool Columns::columnCircleCollide(float x, float y, float r, Column* c) {
+    // skewed coordinates to fit skewed circle
+    // todo: clean up this mess
+    float sY1 = (c->y1 - y) / this->gameState->aspectRatio + y;
+    float sY2 = (c->y2 - y) / this->gameState->aspectRatio + y;
+
+    float halfW = (c->x2 - c->x1) / 2.f;
+    float halfH = (sY2 - sY1) / 2.f;
+    // distance between centers
+    float distX = std::abs(x - (c->x1 + halfW));
+    float distY = std::abs(y - (sY1 + halfH));
+
+    // check if too far
+    if (distX > r + halfW) return false;
+    if (distY > r + halfH) return false;
+
+    // check if too close
+    if (distX < halfW) return true;
+    if (distY < halfH) return true;
+
+    // corner collision
+    float dx = distX - halfW;
+    float dy = distY - halfH;
+
+    return (dx * dx + dy * dy <= (r * r));
+}
+
 bool Columns::collidedByCircle(float x, float y, float r) {
+    for (int i = 0; i < this->columnsCount; i++) {
+        if (this->columnCircleCollide(x, y, r, &this->columns[i])) return true;
+    }
     return false;
 }
 

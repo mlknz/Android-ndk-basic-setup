@@ -14,8 +14,9 @@ Bird::Bird(GameState* g, AssetManager* a) : GameObject(g, a) {
     this->posUniformLoc = glGetUniformLocation(this->shaderProgram, "pos");
     this->radiusUniformLoc = glGetUniformLocation(this->shaderProgram, "radius");
     this->aspectRatioUniformLoc = glGetUniformLocation(this->shaderProgram, "aspectRatio");
+    // this->projectionMactrixUniformLoc = glGetUniformLocation(this->shaderProgram, "projectionMatrix");
 
-    this->radius = 0.3f;
+    this->radius = 0.15f;
 }
 
 void Bird::resize() {
@@ -76,6 +77,8 @@ void Bird::render() {
     glUniform2f(this->posUniformLoc, this->posX, this->posY);
     glUniform1f(this->radiusUniformLoc, this->radius); // todo: cut extra calls
     glUniform1f(this->aspectRatioUniformLoc, this->gameState->aspectRatio);
+
+    // glUniformMatrix4fv(this->projectionMactrixUniformLoc, 1, GL_FALSE, this->gameState->projectionMatrix);
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glDisableVertexAttribArray(0);

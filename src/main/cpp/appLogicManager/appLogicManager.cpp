@@ -100,7 +100,7 @@ void AppLogicManager::checkWinLose() {
     if (this->sceneManager->bird->posY > 1.0 || this->sceneManager->bird->posY < -1.0) lose = true;
 
     if (this->sceneManager->columns->collidedByCircle(
-            this->sceneManager->bird->posX,
+            this->sceneManager->bird->posX + this->gameState->wPosX,
             this->sceneManager->bird->posY,
             this->sceneManager->bird->radius
     )) lose = true;

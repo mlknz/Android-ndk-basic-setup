@@ -26,6 +26,11 @@ void Renderer::setClearColor(float r, float g, float b, float a) {
 }
 
 void Renderer::resize(int w, int h) {
+    glViewport(0, 0, w, h);
+
+    this->gameState->projectionMatrix[0] = 2.f / (float)(w);
+    this->gameState->projectionMatrix[5] = 2.f / (float)(h);
+
     this->gameState->canvasWidth = w;
     this->gameState->canvasHeight = h;
 

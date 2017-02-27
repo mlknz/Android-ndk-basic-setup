@@ -30,5 +30,7 @@ private:
     GLint posUniformLoc;
     GLint radiusUniformLoc;
     GLint aspectRatioUniformLoc;
+
+    GLint projectionMactrixUniformLoc;
 };
 #endif

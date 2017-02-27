@@ -34,6 +34,7 @@ public:
 private:
 
     void initColumns();
+    bool columnCircleCollide(float x, float y, float r, Column* c);
     void createGLBuffers();
     void updateGLBuffers();
     void dispose() {};
