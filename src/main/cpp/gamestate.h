@@ -21,7 +21,8 @@ public:
     bool menuSceneActive = false;
     bool gameSceneActive = false;
 
-    float wPosX = 0.0;
+    float wPosX = 0.0f;
+    float wSpeedX = 0.2f;
     float gravity = -0.5f;
 
     std::map<std::string, GLuint> shaderPrograms;

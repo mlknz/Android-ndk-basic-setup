@@ -32,6 +32,7 @@ void Renderer::resize(int w, int h) {
     this->gameState->aspectRatio = (float)w / (float)h;
 
     this->sceneManager->startGameButton->resize();
+    this->sceneManager->columns->resize();
     this->sceneManager->bird->resize();
 }
 
@@ -41,7 +42,8 @@ void Renderer::render() {
     if (this->gameState->menuSceneActive) {
         this->sceneManager->startGameButton->render();
     } else if (this->gameState->gameSceneActive) {
-        // glClearColor(0.6f, 0.0f, 0.0f, 1.0f);
+
+        this->sceneManager->columns->render();
         this->sceneManager->bird->render();
     }
 

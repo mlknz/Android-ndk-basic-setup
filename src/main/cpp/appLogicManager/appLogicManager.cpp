@@ -80,12 +80,14 @@ void AppLogicManager::switchToGameScene() {
 
 void AppLogicManager::update() {
     t = currentTimeInMilliseconds();
-    this->gameState->dt = (t - this->gameState->time) / 1000.f;
+    this->gameState->dt = (t - this->gameState->time) / 1000.0;
     this->gameState->time = t;
 
     if (this->gameState->menuSceneActive) {
 
     } else if (this->gameState->gameSceneActive) {
+        this->gameState->wPosX += this->gameState->wSpeedX * this->gameState->dt;
+
         this->sceneManager->bird->posY += this->sceneManager->bird->speedY * this->gameState->dt;
         this->sceneManager->bird->speedY += this->gameState->gravity * this->gameState->dt;
 
@@ -96,6 +98,12 @@ void AppLogicManager::update() {
 void AppLogicManager::checkWinLose() {
     bool lose = false;
     if (this->sceneManager->bird->posY > 1.0 || this->sceneManager->bird->posY < -1.0) lose = true;
+
+    if (this->sceneManager->columns->collidedByCircle(
+            this->sceneManager->bird->posX,
+            this->sceneManager->bird->posY,
+            this->sceneManager->bird->radius
+    )) lose = true;
 
     if (lose) {
         this->switchToMenuScene();
