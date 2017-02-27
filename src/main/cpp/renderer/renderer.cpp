@@ -11,6 +11,9 @@ Renderer::Renderer(GameState* g, SceneManager* s) {
     this->gameState = g;
     this->sceneManager = s;
     this->setClearColor(config::clearColor[0], config::clearColor[1], config::clearColor[2], config::clearColor[3]);
+
+    glEnable (GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 Renderer::~Renderer() {
