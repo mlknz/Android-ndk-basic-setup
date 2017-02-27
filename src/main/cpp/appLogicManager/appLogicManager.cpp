@@ -8,7 +8,7 @@
 #include "../gameObject/columns.h"
 
 float dx, dy = 0.f;
-float t;
+double t;
 
 AppLogicManager::AppLogicManager(GameState* g, AssetManager* a, SceneManager* s) {
     this->gameState = g;
@@ -47,7 +47,7 @@ void AppLogicManager::onTouchStart(float posX, float posY) {
             this->switchToGameScene();
         }
     } else if (this->gameState->gameSceneActive) {
-        this->sceneManager->bird->speedY = 0.3f;
+        this->sceneManager->bird->speedY = 0.5f;
     }
 
 }
@@ -79,7 +79,7 @@ void AppLogicManager::switchToGameScene() {
 }
 
 void AppLogicManager::update() {
-    t = currentTimeInMilliseconds();
+    t = (double)currentTimeInMilliseconds();
     this->gameState->dt = (t - this->gameState->time) / 1000.0;
     this->gameState->time = t;
 

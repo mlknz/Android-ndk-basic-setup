@@ -28,8 +28,8 @@ public:
     bool gameSceneActive = false;
 
     float wPosX = 0.0f;
-    float wSpeedX = 0.2f;
-    float gravity = -0.5f;
+    float wSpeedX = 0.3f;
+    float gravity = -0.8f;
 
     std::map<std::string, GLuint> shaderPrograms;
 };
