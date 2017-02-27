@@ -16,6 +16,7 @@ public:
 
     virtual void render() {};
     virtual void resize() {};
+    virtual bool containsTouch(float touchX, float touchY) {}; // params in [0, 1]
 
     std::string type = "GameObject";
     GLuint shaderProgram;

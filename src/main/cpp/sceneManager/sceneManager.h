@@ -8,6 +8,6 @@ public:
     SceneManager() {};
     ~SceneManager() {};
 
-    GameObject* testButton;
+    GameObject* startGameButton;
 };
 #endif

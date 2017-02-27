@@ -1,6 +1,7 @@
 #include "appLogicManager.h"
 #include <sys/time.h>
 
+#include "../common.h"
 #include "../gameObject/button.h"
 
 float dx, dy = 0.f;
@@ -11,7 +12,7 @@ AppLogicManager::AppLogicManager(GameState* g, AssetManager* a, SceneManager* s)
     this->sceneManager = s;
 
     Button* startGameButton = new Button(this->gameState, this->assetManager, 0.0f, 0.0f, 0.7f, 0.5f, "textures/testImage.png");
-    this->sceneManager->testButton = startGameButton;
+    this->sceneManager->startGameButton = startGameButton;
 }
 
 AppLogicManager::~AppLogicManager() {
@@ -32,6 +33,16 @@ void AppLogicManager::onTouchStart(float posX, float posY) {
     this->touchPosY = posY;
 
     this->touchActive = true;
+
+    if (this->gameState->menuSceneActive) {
+        float ndcX = this->touchPosX / this->gameState->canvasWidth;
+        float ndcY = this->touchPosY / this->gameState->canvasHeight;
+
+        if (this->sceneManager->startGameButton->containsTouch(ndcX, ndcY)) {
+            LOGI("change scene");
+            this->switchToGameScene();
+        }
+    }
 }
 
 void AppLogicManager::onTouchMove(float posX, float posY) {
@@ -46,17 +57,22 @@ void AppLogicManager::onTouchEnd(float posX, float posY) {
 }
 
 void AppLogicManager::switchToMenuScene() {
-    this->menuSceneActive = true;
-    this->gameSceneActive = false;
+    this->gameState->menuSceneActive = true;
+    this->gameState->gameSceneActive = false;
 }
 
 void AppLogicManager::switchToGameScene() {
-    this->menuSceneActive = false;
-    this->gameSceneActive = true;
+    this->gameState->menuSceneActive = false;
+    this->gameState->gameSceneActive = true;
 }
 
 void AppLogicManager::update() {
     this->gameState->time = currentTimeInMilliseconds();
+    if (this->gameState->menuSceneActive) {
+
+    } else if (this->gameState->gameSceneActive) {
+
+    }
 
 
 }

@@ -23,15 +23,20 @@ void Renderer::setClearColor(float r, float g, float b, float a) {
 }
 
 void Renderer::resize(int w, int h) {
-    LOGI("zzzzzzzzzzz %d, %d", w, h);
     this->gameState->canvasWidth = w;
     this->gameState->canvasHeight = h;
 
     this->gameState->aspectRatio = (float)w / (float)h;
-    this->sceneManager->testButton->resize();
+    this->sceneManager->startGameButton->resize();
 }
 
 void Renderer::render() {
     glClear(GL_COLOR_BUFFER_BIT);
-    this->sceneManager->testButton->render();
+
+    if (this->gameState->menuSceneActive) {
+        this->sceneManager->startGameButton->render();
+    } else if (this->gameState->gameSceneActive) {
+        glClearColor(0.9f, 0.0f, 0.0f, 1.0f);
+    }
+
 }

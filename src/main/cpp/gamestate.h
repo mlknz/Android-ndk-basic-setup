@@ -18,6 +18,9 @@ public:
     int canvasHeight = 1;
     float aspectRatio = 1.f;
 
+    bool menuSceneActive = false;
+    bool gameSceneActive = false;
+
     std::map<std::string, GLuint> shaderPrograms;
 };
 

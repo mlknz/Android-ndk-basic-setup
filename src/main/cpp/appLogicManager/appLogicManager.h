@@ -23,9 +23,6 @@ private:
     AssetManager* assetManager;
     SceneManager* sceneManager;
 
-    bool menuSceneActive = false;
-    bool gameSceneActive = false;
-
     bool touchActive = false;
     float touchPosX = -1;
     float touchPosY = -1;

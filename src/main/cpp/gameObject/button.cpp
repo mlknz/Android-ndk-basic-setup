@@ -99,3 +99,9 @@ void Button::render() {
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
 }
+
+bool Button::containsTouch(float touchX, float touchY) {
+    float x = touchX * 2.f - 1.f; // to [-1, 1] (NDC)
+    float y = touchY * 2.f - 1.f;
+    return x > this->left && x < this->right && y > this->down && y < this->up;
+};
