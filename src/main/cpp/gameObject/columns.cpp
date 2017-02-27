@@ -1,6 +1,13 @@
 #include "columns.h"
 
+#include <stdlib.h>
+#include <time.h>
 #include "../common.h"
+
+float rand_FloatRange(float a, float b)
+{
+    return ((b-a)*((float)rand()/RAND_MAX))+a;
+}
 
 Columns::Columns(GameState* g, AssetManager* a) : GameObject(g, a) {
 
@@ -19,15 +26,19 @@ Columns::Columns(GameState* g, AssetManager* a) : GameObject(g, a) {
 }
 
 void Columns::initColumns() {
+    srand(time(NULL));
     this->columns = new Column[this->columnsCount];
+
     for (int i = 0; i < this->columnsCount; i += 2) {
-        this->columns[i].x = float(i) / 5.f;
-        this->columns[i].y1 = 0.5f;
+        this->columns[i].x1 = float(i) / 5.f;
+        this->columns[i].x2 = this->columns[i].x1 + this->columnWidth;
+        this->columns[i].y1 = rand_FloatRange(0.25f, 0.75f);
         this->columns[i].y2 = 1.0f;
 
-        this->columns[i + 1].x = float(i) / 5.f;
+        this->columns[i + 1].x1 = this->columns[i].x1;
+        this->columns[i + 1].x2 = this->columns[i].x2;
         this->columns[i + 1].y1 = -1.f;
-        this->columns[i + 1].y2 = -0.5f;
+        this->columns[i + 1].y2 = this->columns[i].y1 - 1.f;
 
     }
 }
@@ -51,8 +62,8 @@ void Columns::updateGLBuffers() {
     for (int i = 0; i < this->columnsCount; i++) {
         j = i*12;
 
-        left = this->columns[i].x;
-        right = left + this->columnWidth;
+        left = this->columns[i].x1;
+        right = this->columns[i].x2;
         down = this->columns[i].y1;
         up = this->columns[i].y2;
 

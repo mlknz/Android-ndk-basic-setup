@@ -6,17 +6,14 @@
 
 struct Column {
     Column() {
-        x = 0.f;
+        x1 = 0.f;
+        x2 = 0.f;
         y1 = 0.f;
         y2 = 0.f;
     }
 
-    Column(float a, float b ,float c) {
-        x = a;
-        y1 = b;
-        y2 = c;
-    }
-    float x;
+    float x1;
+    float x2;
     float y1;
     float y2;
 };
@@ -27,7 +24,7 @@ public:
 
     std::string type = "columns";
 
-    int columnsCount = 20;
+    int columnsCount = 50;
 
     void render();
     void resize();
