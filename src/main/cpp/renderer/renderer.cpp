@@ -4,16 +4,17 @@
 #include "../glm/gtc/type_ptr.hpp"
 #include "../glm/gtc/matrix_transform.hpp"
 
-#include "shaderProgram.h"
 #include "../config.h"
 
-Renderer::Renderer(GameState* g) {
+Renderer::Renderer(GameState* g, SceneManager* s) {
     this->gameState = g;
+    this->sceneManager = s;
     this->setClearColor(config::clearColor[0], config::clearColor[1], config::clearColor[2], config::clearColor[3]);
 }
 
 Renderer::~Renderer() {
     this->gameState = nullptr;
+    this->sceneManager = nullptr;
 }
 
 void Renderer::setClearColor(float r, float g, float b, float a) {
@@ -25,15 +26,9 @@ void Renderer::resize(int w, int h) {
     this->gameState->canvasHeight = h;
 }
 
-GLuint Renderer::createShaderProgram(char* vertCode, char* fragCode) {
-    GLuint vert = compileShader(GL_VERTEX_SHADER, vertCode);
-    GLuint frag = compileShader(GL_FRAGMENT_SHADER, vertCode);
-
-    GLuint program = linkShaderProgram(vert, frag);
-
-    return program;
-}
-
 void Renderer::render() {
     glClear(GL_COLOR_BUFFER_BIT);
+    glDisable(GL_DEPTH_TEST);
+    glFrontFace(GL_CCW);
+    this->sceneManager->testButton->render();
 }

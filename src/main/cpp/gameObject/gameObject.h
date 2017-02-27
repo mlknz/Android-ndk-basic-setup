@@ -5,23 +5,31 @@
 #include <GLES2/gl2.h>
 
 #include "../gamestate.h"
+#include "../assetManager/assetManager.h"
 
 // abstract class
 class GameObject {
 public:
-    GameObject(GameState* g);
+    GameObject() {};
+    GameObject(GameState* g, AssetManager* a);
     ~GameObject();
 
-    virtual void tmpMakeAbstract() = 0;
-    std::string type = "gameObject";
+    // void render() {};
 
+    std::string type = "GameObject";
     GLuint shaderProgram;
     int zIndex = 0;
 
-private:
+protected:
+    void setShaderProgram(std::string type);
     GLuint createShaderProgram(std::string type);
-    virtual void dispose() {};
+
+private:
+    virtual void dispose() = 0;
+
     GameState* gameState;
+    AssetManager* assetManager;
+
 };
 
 #endif

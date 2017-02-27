@@ -35,6 +35,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/appLogicManager" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/sceneManager" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/assetManager" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/renderer" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/cpp/gameObject" isTestSource="false" />

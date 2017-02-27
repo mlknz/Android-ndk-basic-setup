@@ -16,6 +16,8 @@ add_library(appManager SHARED
 
               src/main/cpp/appLogicManager/appLogicManager.cpp
 
+              src/main/cpp/sceneManager/sceneManager.cpp
+
               src/main/cpp/assetManager/assetManager.cpp
               src/main/cpp/assetManager/pngImageLoader.cpp
 

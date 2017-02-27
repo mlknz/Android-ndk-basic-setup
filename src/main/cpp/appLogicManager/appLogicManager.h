@@ -3,10 +3,11 @@
 
 #include "../gamestate.h"
 #include "../assetManager/assetManager.h"
+#include "../sceneManager/sceneManager.h"
 
 class AppLogicManager {
 public:
-    AppLogicManager(GameState* g, AssetManager* a);
+    AppLogicManager(GameState* g, AssetManager* a, SceneManager* s);
     ~AppLogicManager();
 
     void onTouchStart(float posX, float posY);
@@ -20,6 +21,7 @@ public:
 private:
     GameState* gameState;
     AssetManager* assetManager;
+    SceneManager* sceneManager;
 
     bool menuSceneActive = false;
     bool gameSceneActive = false;

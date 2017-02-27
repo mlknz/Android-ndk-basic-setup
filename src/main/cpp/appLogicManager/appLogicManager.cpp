@@ -1,15 +1,23 @@
 #include "appLogicManager.h"
 #include <sys/time.h>
 
+#include "../gameObject/button.h"
+
 float dx, dy = 0.f;
 
-AppLogicManager::AppLogicManager(GameState* g, AssetManager* a) {
+AppLogicManager::AppLogicManager(GameState* g, AssetManager* a, SceneManager* s) {
     this->gameState = g;
     this->assetManager = a;
+    this->sceneManager = s;
+
+    Button* startGameButton = new Button(this->gameState, this->assetManager);
+    this->sceneManager->testButton = startGameButton;
 }
 
 AppLogicManager::~AppLogicManager() {
     this->gameState = nullptr;
+    this->assetManager = nullptr;
+    this->sceneManager = nullptr;
 }
 
 long long currentTimeInMilliseconds()

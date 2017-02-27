@@ -5,20 +5,23 @@
 #include "assetManager/assetManager.h"
 #include "appLogicManager/appLogicManager.h"
 #include "renderer/renderer.h"
+#include "sceneManager/sceneManager.h"
 
 static GameState* gameState;
 
 static AssetManager* assetManager;
 static AppLogicManager* appLogicManager;
 static Renderer* renderer;
+static SceneManager* sceneManager;
 
 extern "C" {
     JNIEXPORT void JNICALL
     Java_mlkn_testapp_GameLibJNIWrapper_onSurfaceCreated(JNIEnv *env, jclass cls) {
         gameState = new GameState();
+        sceneManager = new SceneManager();
 
-        appLogicManager = new AppLogicManager(gameState, assetManager);
-        renderer = new Renderer(gameState);
+        appLogicManager = new AppLogicManager(gameState, assetManager, sceneManager);
+        renderer = new Renderer(gameState, sceneManager);
 
         appLogicManager->switchToMenuScene();
     }

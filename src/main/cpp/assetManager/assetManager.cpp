@@ -10,21 +10,9 @@ AssetManager::AssetManager(JNIEnv* env, jobject aMng) {
     env->NewGlobalRef(aMng);
     this->refreshFromJava();
 
-    ImageData* testImage;
-    testImage = FromAssetPNGFile(assetManager, "textures/testImage2.png");
-    LOGI("image width / height: %d / %d", testImage->img_width, testImage->img_height);
+    // ImageData* testImage;
+    // testImage = FromAssetPNGFile(assetManager, "textures/testImage2.png");
 
-    AAsset* file = AAssetManager_open(assetManager, "shaders/test.vert", AASSET_MODE_BUFFER);
-    size_t fileLength = AAsset_getLength(file);
-
-    char* fileContent = new char[fileLength + 1];
-
-    AAsset_read(file, fileContent, fileLength);
-    fileContent[fileLength] = '\0';
-
-    // use file content
-
-    delete [] fileContent;
 }
 
 AssetManager::~AssetManager() {
@@ -34,4 +22,15 @@ AssetManager::~AssetManager() {
 
 void AssetManager::refreshFromJava() {
     this->assetManager = AAssetManager_fromJava(this->env, this->aMng);
+}
+
+char* AssetManager::loadFile(std::string path) {
+    AAsset* file = AAssetManager_open(this->assetManager, path.c_str(), AASSET_MODE_BUFFER);
+    size_t fileLength = AAsset_getLength(file);
+
+    char* fileContent = new char[fileLength + 1];
+
+    AAsset_read(file, fileContent, fileLength);
+    fileContent[fileLength] = '\0';
+    return fileContent;
 }
