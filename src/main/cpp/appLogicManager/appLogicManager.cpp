@@ -1,12 +1,14 @@
 #include "appLogicManager.h"
 #include <sys/time.h>
 
+#include <math.h>
 #include "../common.h"
 #include "../gameObject/button.h"
 #include "../gameObject/bird.h"
 #include "../gameObject/columns.h"
 
 float dx, dy = 0.f;
+float t;
 
 AppLogicManager::AppLogicManager(GameState* g, AssetManager* a, SceneManager* s) {
     this->gameState = g;
@@ -44,7 +46,10 @@ void AppLogicManager::onTouchStart(float posX, float posY) {
         if (this->sceneManager->startGameButton->containsTouch(ndcX, ndcY)) {
             this->switchToGameScene();
         }
+    } else if (this->gameState->gameSceneActive) {
+        this->sceneManager->bird->speedY = 0.3f;
     }
+
 }
 
 void AppLogicManager::onTouchMove(float posX, float posY) {
@@ -59,6 +64,7 @@ void AppLogicManager::onTouchEnd(float posX, float posY) {
 }
 
 void AppLogicManager::switchToMenuScene() {
+
     this->gameState->menuSceneActive = true;
     this->gameState->gameSceneActive = false;
 }
@@ -67,18 +73,32 @@ void AppLogicManager::switchToGameScene() {
     this->gameState->wPosX = 0.f;
 
     this->sceneManager->bird->setPosition(-0.5f, 0.0f);
+    this->sceneManager->bird->speedY = 0.0f;
     this->gameState->menuSceneActive = false;
     this->gameState->gameSceneActive = true;
 }
 
 void AppLogicManager::update() {
-    this->gameState->time = currentTimeInMilliseconds();
+    t = currentTimeInMilliseconds();
+    this->gameState->dt = (t - this->gameState->time) / 1000.f;
+    this->gameState->time = t;
+
     if (this->gameState->menuSceneActive) {
 
     } else if (this->gameState->gameSceneActive) {
+        this->sceneManager->bird->posY += this->sceneManager->bird->speedY * this->gameState->dt;
+        this->sceneManager->bird->speedY += this->gameState->gravity * this->gameState->dt;
 
+        this->checkWinLose();
     }
+}
 
+void AppLogicManager::checkWinLose() {
+    bool lose = false;
+    if (this->sceneManager->bird->posY > 1.0 || this->sceneManager->bird->posY < -1.0) lose = true;
 
+    if (lose) {
+        this->switchToMenuScene();
+    }
 }
 

@@ -2,6 +2,8 @@
 #define __SceneManager__
 
 #include "../gameObject/gameObject.h"
+#include "../gameObject/bird.h"
+#include "../gameObject/columns.h"
 
 class SceneManager {
 public:
@@ -10,7 +12,7 @@ public:
 
     GameObject* startGameButton;
 
-    GameObject* bird;
-    GameObject* columns;
+    Bird* bird;
+    Columns* columns;
 };
 #endif

@@ -22,7 +22,7 @@ public:
     bool gameSceneActive = false;
 
     float wPosX = 0.0;
-    float gravity = -10.f;
+    float gravity = -0.5f;
 
     std::map<std::string, GLuint> shaderPrograms;
 };

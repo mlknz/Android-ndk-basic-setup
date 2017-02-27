@@ -70,7 +70,7 @@ void Bird::render() {
             GL_FLOAT,           // type
             GL_FALSE,           // normalized?
             0,                  // stride
-            (void*)(12 * 4)          // array buffer offset
+            (void*)(12 * 4)     // array buffer offset
     );
 
     glUniform2f(this->posUniformLoc, this->posX, this->posY);

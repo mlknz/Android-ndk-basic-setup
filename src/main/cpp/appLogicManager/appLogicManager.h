@@ -26,6 +26,8 @@ private:
     bool touchActive = false;
     float touchPosX = -1;
     float touchPosY = -1;
+
+    void checkWinLose();
 };
 
 #endif
