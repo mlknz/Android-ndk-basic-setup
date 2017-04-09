@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.4.1)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall")
 
 # Import the CMakeLists.txt for the glm library
 #add_subdirectory(src/main/cpp/glm)
@@ -29,6 +29,16 @@ add_library(appManager SHARED
               src/main/cpp/gameObject/button.cpp
               src/main/cpp/gameObject/bird.cpp
               src/main/cpp/gameObject/columns.cpp
+
+              src/main/cpp/viewController/view.cpp
+              src/main/cpp/viewController/viewController.cpp
+              src/main/cpp/viewController/views/chooseLevelView.cpp
+              src/main/cpp/viewController/views/gameView.cpp
+              src/main/cpp/viewController/views/levelPackView.cpp
+              src/main/cpp/viewController/views/loadingView.cpp
+              src/main/cpp/viewController/views/mainMenuView.cpp
+              src/main/cpp/viewController/views/settingsView.cpp
+              src/main/cpp/viewController/views/startUpView.cpp
               )
 
 target_include_directories(appManager PRIVATE ${ANDROID_NDK}/sources/android/libpng-android/jni/)

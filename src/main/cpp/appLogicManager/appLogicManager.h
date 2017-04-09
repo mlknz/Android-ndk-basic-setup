@@ -3,11 +3,11 @@
 
 #include "../gamestate.h"
 #include "../assetManager/assetManager.h"
-#include "../sceneManager/sceneManager.h"
+#include "../viewController/viewController.h"
 
 class AppLogicManager {
 public:
-    AppLogicManager(GameState* g, AssetManager* a, SceneManager* s);
+    AppLogicManager(AssetManager* a);
     ~AppLogicManager();
 
     void onTouchStart(float posX, float posY);
@@ -16,18 +16,15 @@ public:
 
     void update();
 
-    void switchToMenuScene();
-    void switchToGameScene();
-private:
     GameState* gameState;
+    ViewController* viewController;
+private:
+
     AssetManager* assetManager;
-    SceneManager* sceneManager;
 
     bool touchActive = false;
     float touchPosX = -1;
     float touchPosY = -1;
-
-    void checkWinLose();
 };
 
 #endif

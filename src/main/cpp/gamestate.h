@@ -24,9 +24,6 @@ public:
             0.f, 0.f, 0.f, 1.f
     };
 
-    bool menuSceneActive = false;
-    bool gameSceneActive = false;
-
     float wPosX = 0.0f;
     float wSpeedX = 0.3f;
     float gravity = -0.8f;

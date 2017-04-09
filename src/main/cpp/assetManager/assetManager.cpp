@@ -29,7 +29,7 @@ char* AssetManager::loadFile(std::string path) {
     AAsset* file = AAssetManager_open(this->assetManager, path.c_str(), AASSET_MODE_BUFFER);
     size_t fileLength = AAsset_getLength(file);
 
-    char* fileContent = new char[fileLength + 1];
+    char* fileContent = new char[fileLength + 1]; // todo: remove new
 
     AAsset_read(file, fileContent, fileLength);
     fileContent[fileLength] = '\0';

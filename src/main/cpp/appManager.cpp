@@ -1,29 +1,21 @@
 #include <jni.h>
+#include <memory>
 
 #include "gamestate.h"
 
 #include "assetManager/assetManager.h"
 #include "appLogicManager/appLogicManager.h"
 #include "renderer/renderer.h"
-#include "sceneManager/sceneManager.h"
 
-static GameState* gameState;
+static std::unique_ptr<AssetManager> assetManager;
+static std::unique_ptr<AppLogicManager> appLogicManager;
+static std::unique_ptr<Renderer> renderer;
 
-static AssetManager* assetManager;
-static AppLogicManager* appLogicManager;
-static Renderer* renderer;
-static SceneManager* sceneManager;
-
-extern "C" {
+extern "C" { // todo: GLSurfaceView onPause, onResume, onExit (?)
     JNIEXPORT void JNICALL
     Java_mlkn_testapp_GameLibJNIWrapper_onSurfaceCreated(JNIEnv *env, jclass cls) {
-        gameState = new GameState();
-        sceneManager = new SceneManager();
-
-        appLogicManager = new AppLogicManager(gameState, assetManager, sceneManager);
-        renderer = new Renderer(gameState, sceneManager);
-
-        appLogicManager->switchToMenuScene();
+        appLogicManager = std::make_unique<AppLogicManager>(assetManager.get());
+        renderer = std::make_unique<Renderer>(appLogicManager->viewController);
     }
 
     JNIEXPORT void JNICALL
@@ -39,7 +31,7 @@ extern "C" {
 
     JNIEXPORT void JNICALL
     Java_mlkn_testapp_GameLibJNIWrapper_passAssetManager(JNIEnv *env, jclass cls, jobject aMng) {
-        assetManager = new AssetManager(env, aMng);
+        assetManager = std::make_unique<AssetManager>(env, aMng);
     }
 
     JNIEXPORT void JNICALL
