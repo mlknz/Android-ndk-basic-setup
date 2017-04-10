@@ -14,7 +14,7 @@ public:
     void resize(int w, int h);
     void render();
 private:
-    ViewController* viewController;
+    ViewController* m_viewController;
 };
 
 #endif

@@ -6,17 +6,20 @@
 float dx, dy = 0.f;
 double t;
 
-AppLogicManager::AppLogicManager(AssetManager* a) {
-    this->assetManager = a;
-    this->gameState = new GameState(); // todo: use singletone
-
-    this->viewController = new ViewController();
+AppLogicManager::AppLogicManager(AssetManager* assetManager) {
+    m_assetManager = assetManager;
+    m_viewController = std::make_unique<ViewController>();
+    m_gameState = GameState::local();
 }
 
 AppLogicManager::~AppLogicManager() {
-    this->gameState = nullptr;
-    this->assetManager = nullptr;
-    this->viewController = nullptr;
+    m_gameState = nullptr;
+    m_assetManager = nullptr;
+    m_viewController = nullptr;
+}
+
+ViewController* AppLogicManager::getViewController() {
+    return m_viewController.get();
 }
 
 long long currentTimeInMilliseconds()
@@ -27,36 +30,35 @@ long long currentTimeInMilliseconds()
 }
 
 void AppLogicManager::onTouchStart(float posX, float posY) {
-    this->touchPosX = posX;
-    this->touchPosY = posY;
+    m_touchPosX = posX;
+    m_touchPosY = posY;
 
-    this->touchActive = true;
+    m_touchActive = true;
 
-//        float ndcX = this->touchPosX / this->gameState->canvasWidth;
-//        float ndcY = this->touchPosY / this->gameState->canvasHeight;
-//
-//        if (this->sceneManager->startGameButton->containsTouch(ndcX, ndcY)) {
+    float ndcX = m_touchPosX / m_gameState->canvasWidth;
+    float ndcY = m_touchPosY / m_gameState->canvasHeight;
+
+//        if (this->sceneManager->startGameButton->containsTouch(ndcX, ndcY))
 //            this->switchToGameScene();
-//        }
 }
 
 void AppLogicManager::onTouchMove(float posX, float posY) {
-    dx = posX - this->touchPosX;
-    dy = posY - this->touchPosY;
-    this->touchPosX = posX;
-    this->touchPosY = posY;
+    dx = posX - m_touchPosX;
+    dy = posY - m_touchPosY;
+    m_touchPosX = posX;
+    m_touchPosY = posY;
 }
 
 void AppLogicManager::onTouchEnd(float posX, float posY) {
-    this->touchActive = false;
+    m_touchActive = false;
 }
 
 void AppLogicManager::update() {
     t = (double)currentTimeInMilliseconds();
-    this->gameState->dt = (t - this->gameState->time) / 1000.0;
-    this->gameState->time = t;
+    m_gameState->dt = (t - m_gameState->time) / 1000.0;
+    m_gameState->time = t;
 
-    this->viewController->activeView->update();
+    m_viewController->activeView->update();
 }
 
 

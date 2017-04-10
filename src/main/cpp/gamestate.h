@@ -11,6 +11,15 @@ public:
     GameState() {};
     ~GameState() {};
 
+    static GameState* local()
+    {
+        static GameState instance;
+        return &instance;
+    }
+
+    GameState(GameState const&) = delete;
+    void operator=(GameState const&) = delete;
+
     double time = -1;
     double dt;
 

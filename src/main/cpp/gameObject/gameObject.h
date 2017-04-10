@@ -26,12 +26,11 @@ protected:
     void setShaderProgram(std::string type);
     GLuint createShaderProgram(std::string type);
 
-    GameState* gameState;
-    AssetManager* assetManager;
+    GameState* m_gameState;
+    AssetManager* m_assetManager;
 
 private:
     virtual void dispose() = 0;
-
 };
 
 #endif

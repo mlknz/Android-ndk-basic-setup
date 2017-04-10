@@ -15,7 +15,7 @@ extern "C" { // todo: GLSurfaceView onPause, onResume, onExit (?)
     JNIEXPORT void JNICALL
     Java_mlkn_testapp_GameLibJNIWrapper_onSurfaceCreated(JNIEnv *env, jclass cls) {
         appLogicManager = std::make_unique<AppLogicManager>(assetManager.get());
-        renderer = std::make_unique<Renderer>(appLogicManager->viewController);
+        renderer = std::make_unique<Renderer>(appLogicManager->getViewController());
     }
 
     JNIEXPORT void JNICALL

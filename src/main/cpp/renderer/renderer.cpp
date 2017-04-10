@@ -7,9 +7,9 @@
 #include "../common.h"
 #include "../config.h"
 
-Renderer::Renderer(ViewController* v) {
-    this->viewController = v;
-    this->setClearColor(config::clearColor[0], config::clearColor[1], config::clearColor[2], config::clearColor[3]);
+Renderer::Renderer(ViewController* viewController) {
+    m_viewController = viewController;
+    setClearColor(config::clearColor[0], config::clearColor[1], config::clearColor[2], config::clearColor[3]);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -24,13 +24,10 @@ void Renderer::setClearColor(float r, float g, float b, float a) {
 
 void Renderer::resize(int w, int h) {
     glViewport(0, 0, w, h);
-
-    this->viewController->resize(w, h);
+    m_viewController->resize(w, h);
 }
 
 void Renderer::render() {
     glClear(GL_COLOR_BUFFER_BIT);
-
-    this->viewController->activeView->draw();
-
+    m_viewController->activeView->draw();
 }

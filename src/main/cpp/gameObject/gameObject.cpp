@@ -2,25 +2,25 @@
 
 #include "../renderer/shaderProgram.h"
 
-GameObject::GameObject(GameState* g, AssetManager* a) {
-    this->gameState = g;
-    this->assetManager = a;
+GameObject::GameObject(GameState* g, AssetManager* assetManager) {
+    m_gameState = GameState::local();
+    m_assetManager = assetManager;
 }
 
 GameObject::~GameObject() {
-    this->dispose();
-    this->gameState = nullptr;
-    this->assetManager = nullptr;
+    dispose();
+    m_gameState = nullptr;
+    m_assetManager = nullptr;
 }
 
 void GameObject::setShaderProgram(std::string type) {
-    auto it = this->gameState->shaderPrograms.find(type);
+    auto it = m_gameState->shaderPrograms.find(type);
 
-    if (it != this->gameState->shaderPrograms.end()) { // program is present
+    if (it != m_gameState->shaderPrograms.end()) { // program is present
         this->shaderProgram = it->second;
     } else {
         this->shaderProgram = this->createShaderProgram(type);
-        this->gameState->shaderPrograms[type] = this->shaderProgram;
+        m_gameState->shaderPrograms[type] = this->shaderProgram;
     }
 }
 
@@ -28,8 +28,8 @@ GLuint GameObject::createShaderProgram(std::string type) {
     std::string vertFileName = std::string("shaders/") + type + std::string(".vert");
     std::string fragFileName = std::string("shaders/") + type + std::string(".frag");
 
-    char* vertCode = this->assetManager->loadFile(vertFileName);
-    char* fragCode = this->assetManager->loadFile(fragFileName);
+    char* vertCode = m_assetManager->loadFile(vertFileName);
+    char* fragCode = m_assetManager->loadFile(fragFileName);
 
     GLuint vert = compileShader(GL_VERTEX_SHADER, vertCode);
     GLuint frag = compileShader(GL_FRAGMENT_SHADER, fragCode);

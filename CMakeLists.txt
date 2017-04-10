@@ -27,8 +27,6 @@ add_library(appManager SHARED
 
               src/main/cpp/gameObject/gameObject.cpp
               src/main/cpp/gameObject/button.cpp
-              src/main/cpp/gameObject/bird.cpp
-              src/main/cpp/gameObject/columns.cpp
 
               src/main/cpp/viewController/view.cpp
               src/main/cpp/viewController/viewController.cpp

@@ -16,7 +16,7 @@ Button::Button(GameState* g, AssetManager* a,
 
     this->useTexture = imagePath.size() > 0;
     if (this->useTexture) {
-        ImageData* image = this->assetManager->loadPNGImage(imagePath);
+        ImageData* image = m_assetManager->loadPNGImage(imagePath);
         this->textureID = this->prepareGLTexture(image->img_width, image->img_height, image->pixels);
     }
 }
@@ -24,8 +24,8 @@ Button::Button(GameState* g, AssetManager* a,
 void Button::resize() {
     this->left = this->centerX - this->width / 2.f;
     this->right = this->centerX + this->width / 2.f;
-    this->down = this->centerY - this->width * this->aspectRatio * this->gameState->aspectRatio / 2.f;
-    this->up = this->centerY + this->width * this->aspectRatio * this->gameState->aspectRatio / 2.f;
+    this->down = this->centerY - this->width * this->aspectRatio * m_gameState->aspectRatio / 2.f;
+    this->up = this->centerY + this->width * this->aspectRatio * m_gameState->aspectRatio / 2.f;
 
     this->updateGLBuffers();
 }
