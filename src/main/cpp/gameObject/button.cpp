@@ -1,8 +1,7 @@
 #include "button.h"
 #include "../common.h"
-Button::Button(GameState* g, AssetManager* a,
-               float centerX, float centerY, float width, float aspectRatio,
-               std::string imagePath) : GameObject(g, a) {
+Button::Button(float centerX, float centerY, float width, float aspectRatio,
+               std::string imagePath) : GameObject() {
     this->centerX = centerX;
     this->centerY = centerY;
     this->width = width;
@@ -16,8 +15,8 @@ Button::Button(GameState* g, AssetManager* a,
 
     this->useTexture = imagePath.size() > 0;
     if (this->useTexture) {
-        ImageData* image = m_assetManager->loadPNGImage(imagePath);
-        this->textureID = this->prepareGLTexture(image->img_width, image->img_height, image->pixels);
+        // ImageData* image = m_assetManager->loadPNGImage(imagePath);
+        // this->textureID = this->prepareGLTexture(image->img_width, image->img_height, image->pixels);
     }
 }
 

@@ -6,8 +6,7 @@
 
 class Button : public GameObject {
 public:
-    Button(GameState* g, AssetManager* a,
-           float centerX, float centerY, float width, float aspectRatio,
+    Button(float centerX, float centerY, float width, float aspectRatio,
            std::string imagePath);
 
     std::string type = "button";

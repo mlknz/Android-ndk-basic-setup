@@ -2,15 +2,13 @@
 
 #include "../renderer/shaderProgram.h"
 
-GameObject::GameObject(GameState* g, AssetManager* assetManager) {
+GameObject::GameObject() {
     m_gameState = GameState::local();
-    m_assetManager = assetManager;
 }
 
 GameObject::~GameObject() {
     dispose();
     m_gameState = nullptr;
-    m_assetManager = nullptr;
 }
 
 void GameObject::setShaderProgram(std::string type) {
@@ -28,8 +26,8 @@ GLuint GameObject::createShaderProgram(std::string type) {
     std::string vertFileName = std::string("shaders/") + type + std::string(".vert");
     std::string fragFileName = std::string("shaders/") + type + std::string(".frag");
 
-    char* vertCode = m_assetManager->loadFile(vertFileName);
-    char* fragCode = m_assetManager->loadFile(fragFileName);
+    char* vertCode = {}; //m_assetManager->loadFile(vertFileName);
+    char* fragCode = {}; // m_assetManager->loadFile(fragFileName);
 
     GLuint vert = compileShader(GL_VERTEX_SHADER, vertCode);
     GLuint frag = compileShader(GL_FRAGMENT_SHADER, fragCode);

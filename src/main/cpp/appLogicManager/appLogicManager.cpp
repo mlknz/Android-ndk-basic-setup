@@ -8,7 +8,7 @@ double t;
 
 AppLogicManager::AppLogicManager(AssetManager* assetManager) {
     m_assetManager = assetManager;
-    m_viewController = std::make_unique<ViewController>();
+    m_viewController = std::make_unique<ViewController>(); // todo: viewController loads all needed assets on view change if needed
     m_gameState = GameState::local();
 }
 

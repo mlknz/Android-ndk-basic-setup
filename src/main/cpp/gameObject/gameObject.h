@@ -5,18 +5,16 @@
 #include <GLES2/gl2.h>
 
 #include "../gamestate.h"
-#include "../assetManager/assetManager.h"
 
 // abstract class
 class GameObject {
 public:
-    GameObject() {};
-    GameObject(GameState* g, AssetManager* a);
+    GameObject();
     ~GameObject();
 
     virtual void render() {};
     virtual void resize() {};
-    virtual bool containsTouch(float touchX, float touchY) {}; // params in [0, 1]
+    virtual bool containsTouch(float touchX, float touchY) {return false;}; // params in [0, 1]
 
     std::string type = "GameObject";
     GLuint shaderProgram;
@@ -27,8 +25,6 @@ protected:
     GLuint createShaderProgram(std::string type);
 
     GameState* m_gameState;
-    AssetManager* m_assetManager;
-
 private:
     virtual void dispose() = 0;
 };
