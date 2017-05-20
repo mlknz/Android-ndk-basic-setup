@@ -2,21 +2,15 @@
 
 Playing with gl context and C++ with android.
 
-// pngImageLoader code from https://github.com/julienr/libpng-android
+To launch this project you need to setup these static libs (some guidance below):
+1. [glm](http://glm.g-truc.net/0.9.8/index.html)
+2. [libpng](http://www.libpng.org/pub/png/libpng.html)
+3. [freetype2](https://www.freetype.org/) 
 
-${ANDROID_NDK} is NDK root directory (Android/sdk/ndk-bundle for me). 
+How to setup libs:
 
-Mess with libpng installation:
+1. relevant info about build and expected paths could be found at CMakeLists.txt
+2. add ${ANDROID_NDK} (NDK root dir) to global $PATH variable (at ~/.bashrc or etc/environment). I am using ndk-r13b currently.
+3. download and cross-compile libs with `ndk-build` for [different Android ABI's](https://developer.android.com/ndk/guides/abis.html). Some configuring is has to be done before building, currently I am using these repackages: [libpng](https://github.com/mlknz/libpng-android), [freetype2](https://github.com/cdave1/freetype2-android).
 
-1. add ${ANDROID_NDK} to global $PATH variable (at ~/.bashrc or etc/environment)
-2. git clone https://github.com/julienr/libpng-android.git to ${ANDROID_NDK}/sources/android
-3. fix lib bug locally: number 130 in pngpriv.h from `define PNG_ARM_NEON_OPT 2` to `define PNG_ARM_NEON_OPT 0`.
-3. compile the lib with script from repo: ./build.sh
-4. (not needed since it is done) add to CMakeLists.txt:
-```bash
-add_library(libpng STATIC IMPORTED)
-set_target_properties(libpng PROPERTIES IMPORTED_LOCATION
-    ${ANDROID_NDK}/sources/android/libpng-android/obj/local/${ANDROID_ABI}/libpng.a)
-target_include_directories(appManager PRIVATE ${ANDROID_NDK}/sources/android/libpng-android/jni)
-```
-and add `libpng` and `z` to `target_link_libraries`
+
