@@ -1,17 +1,17 @@
 #include <jni.h>
 #include <memory>
 
-#include "gamestate.h"
+#include "speedDrive/gamestate.h"
 
-#include "assetManager/assetManager.h"
-#include "appLogicManager/appLogicManager.h"
-#include "renderer/renderer.h"
+#include "speedDrive/assetManager/assetManager.h"
+#include "speedDrive/appLogicManager/appLogicManager.h"
+#include "speedDrive/renderer/renderer.h"
 
 static std::unique_ptr<AssetManager> assetManager;
 static std::unique_ptr<AppLogicManager> appLogicManager;
 static std::unique_ptr<Renderer> renderer;
 
-extern "C" { // todo: GLSurfaceView onPause, onResume, onExit (?)
+extern "C" { // todo: GLSurfaceView onPause, onResume, onExit, handle half-blood activity
     JNIEXPORT void JNICALL
     Java_mlkn_testapp_GameLibJNIWrapper_onSurfaceCreated(JNIEnv *env, jclass cls) {
         appLogicManager = std::make_unique<AppLogicManager>(assetManager.get());
